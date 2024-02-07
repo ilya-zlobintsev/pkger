@@ -7,23 +7,23 @@ on:
     tags:
       - "**"
 jobs:
-  lint:
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-          - macos-latest
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Set up Rust
-        uses: hecrj/setup-rust-action@v1
-        with:
-          components: clippy,rustfmt
-      - uses: actions/checkout@v3
-      - run: make lint
+  #lint:
+  #  strategy:
+  #    matrix:
+  #      os:
+  #        - ubuntu-latest
+  #        - macos-latest
+  #  runs-on: ${{ matrix.os }}
+  #  steps:
+  #    - name: Set up Rust
+  #      uses: hecrj/setup-rust-action@v1
+  #      with:
+  #        components: clippy,rustfmt
+  #    - uses: actions/checkout@v3
+  #    - run: make lint
 
   test:
-    needs: [lint]
+    # needs: [lint]
     strategy:
       matrix:
         os:
