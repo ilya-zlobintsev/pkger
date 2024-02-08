@@ -200,7 +200,7 @@ install:
   steps:
     - cmd: &gt;-
         if [[ $(cat ${RECIPE}_${RECIPE_VERSION}) =~ 123 ]]; then exit 0; else
-        echo &quot;Test file ${RECIPE}_${RECIPE_VERSION} has invalid content&quot;; exit 1; fi
+        echo "Test file ${RECIPE}_${RECIPE_VERSION} has invalid content"; exit 1; fi
 </code></pre>
 <p>The <code>child-package1</code> will share the <code>build</code> steps as well as <code>arch</code>, <code>license</code>, <code>images</code> fields. After merging the child recipe will look something like this:</p>
 <pre><code class="language-yaml">---
@@ -221,7 +221,7 @@ install:
   steps:
     - cmd: &gt;-
         if [[ $(cat ${RECIPE}_${RECIPE_VERSION}) =~ 123 ]]; then exit 0; else
-        echo &quot;Test file ${RECIPE}_${RECIPE_VERSION} has invalid content&quot;; exit 1; fi
+        echo "Test file ${RECIPE}_${RECIPE_VERSION} has invalid content"; exit 1; fi
 </code></pre>
 <p>When defining a child recipe only <code>from</code> and <code>metadata.name</code> fields are required. Here is a minimal child recipe:</p>
 <pre><code class="language-yaml">---

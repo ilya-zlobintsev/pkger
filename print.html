@@ -186,18 +186,18 @@
 <li><code>cargo build --release</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
-<p>By default <strong>pkger</strong> will look for the config file named <code>.pkger.yml</code> in the config directory appropriate for the OS 
-that <strong>pkger</strong> is run on. If there is no global configuration, current directory will be scanned for the same file. 
+<p>By default <strong>pkger</strong> will look for the config file named <code>.pkger.yml</code> in the config directory appropriate for the OS
+that <strong>pkger</strong> is run on. If there is no global configuration, current directory will be scanned for the same file.
 To specify the location of the config file use <code>--config</code> or <code>-c</code> parameter.</p>
 <p>The configuration file has a following structure:</p>
 <pre><code class="language-yaml"># required
-recipes_dir: &quot;&quot;
-output_dir: &quot;&quot;
+recipes_dir: ""
+output_dir: ""
 
 # optional
-log_dir: &quot;&quot;
-images_dir: &quot;&quot;
-runtime_uri: &quot;unix:///var/run/docker.sock&quot;
+log_dir: ""
+images_dir: ""
+runtime_uri: "unix:///var/run/docker.sock"
 
 # Disable colored output globally
 no_color: true
@@ -247,9 +247,9 @@ To read more on each topic select a subsection in the menu.</p>
   arch: x86_64
   license: MIT
   version: 0.1.0
-  maintainer: &quot;vv9k&quot;
-  url: &quot;https://github.com/vv9k/pkger&quot;
-  git: &quot;https://github.com/vv9k/pkger.git&quot;
+  maintainer: "vv9k"
+  url: "https://github.com/vv9k/pkger"
+  git: "https://github.com/vv9k/pkger.git"
   provides: [ pkger ]
   depends:
     pkger-deb: [ libssl-dev ]
@@ -324,7 +324,7 @@ when building with <code>--simple</code> flag.</p>
 <p>If <code>source</code> starts with a prefix like <code>http</code> or <code>https</code> the file that if points to will be downloaded. If the file is an
 archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> it will be directly extracted to
 <a href="./env.html#pkger-variables"><code>$PKGER_BLD_DIR</code></a>, otherwise the file will be copied to the directory untouched.</p>
-<pre><code class="language-yaml">  source: &quot;&quot; # remote source or file system location
+<pre><code class="language-yaml">  source: "" # remote source or file system location
 
   # can also specify multiple sources:
 
@@ -333,7 +333,7 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
     - some_dir   # relative path will be prefixed with recipe directory
     - /some/absolute/path # can be a directory or a file
 
-  git: https://github.com/vv9k/pkger.git # will default to branch = &quot;master&quot;
+  git: https://github.com/vv9k/pkger.git # will default to branch = "master"
 
   # or specify a branch like this:
   git:
@@ -341,15 +341,15 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
     branch: dev
 </code></pre>
 <p><a href="./env.html">Environment variables</a> are available for this fields so this is possible:</p>
-<pre><code class="language-yaml">  source: &quot;https://github.com/vv9k/${RECIPE}/${RECIPE_VERSION}&quot;
+<pre><code class="language-yaml">  source: "https://github.com/vv9k/${RECIPE}/${RECIPE_VERSION}"
 </code></pre>
 <h3 id="common"><a class="header" href="#common">common</a></h3>
 <p>Optional fields shared across all targets.</p>
-<pre><code class="language-yaml">  release: &quot;1&quot; # defaults to &quot;0&quot;
+<pre><code class="language-yaml">  release: "1" # defaults to "0"
 
-  epoch: &quot;42&quot;
+  epoch: "42"
 
-  maintainer: &quot;vv9k&quot;
+  maintainer: "vv9k"
 
 # The website of the package being built
   url: https://github.com/vv9k/pkger
@@ -358,12 +358,12 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
 
   skip_default_deps: true # skip installing default dependencies, it might break the builds
 
-  exclude: [&quot;share&quot;, &quot;info&quot;] # directories to exclude from final package
+  exclude: ["share", "info"] # directories to exclude from final package
 
-  group: &quot;&quot; # acts as Group in RPM or Section in DEB build
+  group: "" # acts as Group in RPM or Section in DEB build
 </code></pre>
 <h3 id="dependencies"><a class="header" href="#dependencies">dependencies</a></h3>
-<p>Common fields that specify dependencies, conflicts and provides will be added to the spec of the final package. </p>
+<p>Common fields that specify dependencies, conflicts and provides will be added to the spec of the final package.</p>
 <p>This fields can be specified as arrays:</p>
 <pre><code class="language-yaml">  depends: []
   conflicts: []
@@ -374,11 +374,11 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
 supported distribution. Default dependencies like <code>gzip</code> or <code>git</code> might be installed depending on the target job type.</p>
 <pre><code class="language-yaml">  build_depends:
     # common dependencies shared across all images
-    all: [&quot;gcc&quot;, &quot;pkg-config&quot;, &quot;git&quot;]
+    all: ["gcc", "pkg-config", "git"]
 
     # dependencies for custom images
-    rocky: [&quot;cargo&quot;, &quot;openssl-devel&quot;]
-    debian: [&quot;curl&quot;, &quot;libssl-dev&quot;]
+    rocky: ["cargo", "openssl-devel"]
+    debian: ["curl", "libssl-dev"]
 </code></pre>
 <p>To specify same dependencies for multiple images join the images by <code>+</code> sign like this:</p>
 <pre><code class="language-yaml">    rocky+fedora34: [ cargo, openssl-devel ]
@@ -388,8 +388,8 @@ supported distribution. Default dependencies like <code>gzip</code> or <code>git
 </code></pre>
 <p>if running a simple build and there is a need to specify dependencies for the target add dependencies for one of this
 images:</p>
-<pre><code class="language-yaml">    pkger-rpm+pkger-apk+pkger-pkg: [&quot;cargo&quot;]
-    pkger-deb: [&quot;curl&quot;]
+<pre><code class="language-yaml">    pkger-rpm+pkger-apk+pkger-pkg: ["cargo"]
+    pkger-deb: ["curl"]
     pkger-gzip: []
 </code></pre>
 <p>A custom image, for example <code>rocky</code>, will also use dependecies defined for <code>pkger-rpm</code>. The same will apply for all rpm based images (or images that have their target specified to RPM in the <a href="./configuration.html">configuration</a>)</p>
@@ -409,34 +409,34 @@ from remote source.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rpm-fields"><a class="header" href="#rpm-fields">RPM fields</a></h1>
 <p>Optional fields that will be used when building RPM target.</p>
 <pre><code class="language-yaml">  rpm:
-    vendor: &quot;&quot;
-    icon: &quot;&quot;
-    summary: &quot;shorter description&quot; # if not provided defaults to value of `description`
-    config_noreplace: &quot;%{_sysconfdir}/%{name}/%{name}.conf&quot;
+    vendor: ""
+    icon: ""
+    summary: "shorter description" # if not provided defaults to value of `description`
+    config_noreplace: "%{_sysconfdir}/%{name}/%{name}.conf"
 
-    pre_script: &quot;&quot;
-    post_script: &quot;&quot;
-    preun_script: &quot;&quot;
-    postun_script: &quot;&quot;
+    pre_script: ""
+    post_script: ""
+    preun_script: ""
+    postun_script: ""
     
     # Disable automatic dependency processing. Setting this to true has no effect.
     auto_req_prov: false
 
     # acts the same as other dependencies - can be passed as array
-    #obsoletes: [&quot;foo&quot;]
+    #obsoletes: ["foo"]
     # or as a map
     obsoletes:
-      rocky: [&quot;foo&quot;]
+      rocky: ["foo"]
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="deb-fields"><a class="header" href="#deb-fields">DEB fields</a></h1>
 <p>Optional fields that may be used when building a DEB package.</p>
 <pre><code class="language-yaml">  deb:
-    priority: &quot;&quot;
-    built_using: &quot;&quot;
+    priority: ""
+    built_using: ""
     essential: true
     
     # specify the content of post install script
-    postinst: &quot;&quot;
+    postinst: ""
 
     # same as all other dependencies but deb specific
     pre_depends: []
@@ -451,10 +451,10 @@ from remote source.</p>
 <pre><code class="language-yaml">  pkg:
     # location of the script in `$PKGER_OUT_DIR` that contains pre/post install/upgrade/remove functions
     # to be included in the final pkg
-    install: &quot;.install&quot;
+    install: ".install"
     
     # A list of files to be backed up when package will be removed or upgraded
-    backup: [&quot;/etc/pkger.conf&quot;]
+    backup: ["/etc/pkger.conf"]
     
     # A list of packages that this package replaces
     replaces: []
@@ -462,13 +462,13 @@ from remote source.</p>
     # This are dependencies that this package needs to offer full functionality.
     optdepends:
       # Each dependency should contain a short description in this format:
-      - &quot;libpng: PNG images support&quot;
-      - &quot;alsa-lib: sound support&quot;
+      - "libpng: PNG images support"
+      - "alsa-lib: sound support"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="apk-fields"><a class="header" href="#apk-fields">APK fields</a></h1>
 <p>Optional fields that will be used when building a APK package.</p>
 <pre><code class="language-yaml">  apk:
-    install: &quot;$pkgname.pre-install $pkgname.post-install&quot;
+    install: "$pkgname.pre-install $pkgname.post-install"
     
     # A list of packages that this package replaces
     replaces: []
@@ -478,13 +478,13 @@ from remote source.</p>
 
     # If not provided a new generated key will be used to
     # sign the package
-    private_key: &quot;/location/of/apk_signing_key&quot;
+    private_key: "/location/of/apk_signing_key"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="scripts"><a class="header" href="#scripts">Scripts</a></h1>
 <p><strong>pkger</strong> has 3 defined build phases - <em>configure</em>, <em>build</em> and <em>install</em> of which only <em>build</em> is required to create a
 package.</p>
 <p>Each phase has field called <code>steps</code> that takes an array of steps to execute during a given phase. A step can be a simple
-string that will be executed in the default shell like <code>&quot;echo 123&quot;</code> or an entry that specifies on what targets it should
+string that will be executed in the default shell like <code>"echo 123"</code> or an entry that specifies on what targets it should
 be executed like:</p>
 <pre><code class="language-yaml">    - cmd: &gt;-
         echo only on deb targets
@@ -497,13 +497,13 @@ be executed like:</p>
 <pre><code class="language-yaml">  working_dir: ${PKGER_BLD_DIR}/${RECIPE}-${RECIPE_VERSION}-${SOME_USER_DEFINED_VAR}
 </code></pre>
 <p>To use a different shell to execute each command set the <code>shell</code> parameter:</p>
-<pre><code class="language-yaml">  shell: &quot;/bin/bash&quot; # optionally change default `/bin/sh`
+<pre><code class="language-yaml">  shell: "/bin/bash" # optionally change default `/bin/sh`
 </code></pre>
 <h2 id="configure-optional"><a class="header" href="#configure-optional">configure (Optional)</a></h2>
 <p>Optional configuration steps. If provided the steps will be executed before the build phase.
 The working directory will be set to <a href="./env.html#pkger-variables"><code>$PKGER_BLD_DIR</code></a></p>
 <pre><code class="language-yaml">configure:
-  shell: &quot;/bin/bash&quot;
+  shell: "/bin/bash"
   steps:
     - cmd: &gt;-
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -592,7 +592,7 @@ install:
   steps:
     - cmd: &gt;-
         if [[ $(cat ${RECIPE}_${RECIPE_VERSION}) =~ 123 ]]; then exit 0; else
-        echo &quot;Test file ${RECIPE}_${RECIPE_VERSION} has invalid content&quot;; exit 1; fi
+        echo "Test file ${RECIPE}_${RECIPE_VERSION} has invalid content"; exit 1; fi
 </code></pre>
 <p>The <code>child-package1</code> will share the <code>build</code> steps as well as <code>arch</code>, <code>license</code>, <code>images</code> fields. After merging the child recipe will look something like this:</p>
 <pre><code class="language-yaml">---
@@ -613,7 +613,7 @@ install:
   steps:
     - cmd: &gt;-
         if [[ $(cat ${RECIPE}_${RECIPE_VERSION}) =~ 123 ]]; then exit 0; else
-        echo &quot;Test file ${RECIPE}_${RECIPE_VERSION} has invalid content&quot;; exit 1; fi
+        echo "Test file ${RECIPE}_${RECIPE_VERSION} has invalid content"; exit 1; fi
 </code></pre>
 <p>When defining a child recipe only <code>from</code> and <code>metadata.name</code> fields are required. Here is a minimal child recipe:</p>
 <pre><code class="language-yaml">---

@@ -176,24 +176,24 @@
                         <h1 id="rpm-fields"><a class="header" href="#rpm-fields">RPM fields</a></h1>
 <p>Optional fields that will be used when building RPM target.</p>
 <pre><code class="language-yaml">  rpm:
-    vendor: &quot;&quot;
-    icon: &quot;&quot;
-    summary: &quot;shorter description&quot; # if not provided defaults to value of `description`
-    config_noreplace: &quot;%{_sysconfdir}/%{name}/%{name}.conf&quot;
+    vendor: ""
+    icon: ""
+    summary: "shorter description" # if not provided defaults to value of `description`
+    config_noreplace: "%{_sysconfdir}/%{name}/%{name}.conf"
 
-    pre_script: &quot;&quot;
-    post_script: &quot;&quot;
-    preun_script: &quot;&quot;
-    postun_script: &quot;&quot;
+    pre_script: ""
+    post_script: ""
+    preun_script: ""
+    postun_script: ""
     
     # Disable automatic dependency processing. Setting this to true has no effect.
     auto_req_prov: false
 
     # acts the same as other dependencies - can be passed as array
-    #obsoletes: [&quot;foo&quot;]
+    #obsoletes: ["foo"]
     # or as a map
     obsoletes:
-      rocky: [&quot;foo&quot;]
+      rocky: ["foo"]
 </code></pre>
 
                     </main>

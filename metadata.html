@@ -196,7 +196,7 @@ when building with <code>--simple</code> flag.</p>
 <p>If <code>source</code> starts with a prefix like <code>http</code> or <code>https</code> the file that if points to will be downloaded. If the file is an
 archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> it will be directly extracted to
 <a href="./env.html#pkger-variables"><code>$PKGER_BLD_DIR</code></a>, otherwise the file will be copied to the directory untouched.</p>
-<pre><code class="language-yaml">  source: &quot;&quot; # remote source or file system location
+<pre><code class="language-yaml">  source: "" # remote source or file system location
 
   # can also specify multiple sources:
 
@@ -205,7 +205,7 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
     - some_dir   # relative path will be prefixed with recipe directory
     - /some/absolute/path # can be a directory or a file
 
-  git: https://github.com/vv9k/pkger.git # will default to branch = &quot;master&quot;
+  git: https://github.com/vv9k/pkger.git # will default to branch = "master"
 
   # or specify a branch like this:
   git:
@@ -213,15 +213,15 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
     branch: dev
 </code></pre>
 <p><a href="./env.html">Environment variables</a> are available for this fields so this is possible:</p>
-<pre><code class="language-yaml">  source: &quot;https://github.com/vv9k/${RECIPE}/${RECIPE_VERSION}&quot;
+<pre><code class="language-yaml">  source: "https://github.com/vv9k/${RECIPE}/${RECIPE_VERSION}"
 </code></pre>
 <h3 id="common"><a class="header" href="#common">common</a></h3>
 <p>Optional fields shared across all targets.</p>
-<pre><code class="language-yaml">  release: &quot;1&quot; # defaults to &quot;0&quot;
+<pre><code class="language-yaml">  release: "1" # defaults to "0"
 
-  epoch: &quot;42&quot;
+  epoch: "42"
 
-  maintainer: &quot;vv9k&quot;
+  maintainer: "vv9k"
 
 # The website of the package being built
   url: https://github.com/vv9k/pkger
@@ -230,12 +230,12 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
 
   skip_default_deps: true # skip installing default dependencies, it might break the builds
 
-  exclude: [&quot;share&quot;, &quot;info&quot;] # directories to exclude from final package
+  exclude: ["share", "info"] # directories to exclude from final package
 
-  group: &quot;&quot; # acts as Group in RPM or Section in DEB build
+  group: "" # acts as Group in RPM or Section in DEB build
 </code></pre>
 <h3 id="dependencies"><a class="header" href="#dependencies">dependencies</a></h3>
-<p>Common fields that specify dependencies, conflicts and provides will be added to the spec of the final package. </p>
+<p>Common fields that specify dependencies, conflicts and provides will be added to the spec of the final package.</p>
 <p>This fields can be specified as arrays:</p>
 <pre><code class="language-yaml">  depends: []
   conflicts: []
@@ -246,11 +246,11 @@ archive like <code>.tar.gz</code> or <code>.tar.xz</code> or <code>.zip</code> i
 supported distribution. Default dependencies like <code>gzip</code> or <code>git</code> might be installed depending on the target job type.</p>
 <pre><code class="language-yaml">  build_depends:
     # common dependencies shared across all images
-    all: [&quot;gcc&quot;, &quot;pkg-config&quot;, &quot;git&quot;]
+    all: ["gcc", "pkg-config", "git"]
 
     # dependencies for custom images
-    rocky: [&quot;cargo&quot;, &quot;openssl-devel&quot;]
-    debian: [&quot;curl&quot;, &quot;libssl-dev&quot;]
+    rocky: ["cargo", "openssl-devel"]
+    debian: ["curl", "libssl-dev"]
 </code></pre>
 <p>To specify same dependencies for multiple images join the images by <code>+</code> sign like this:</p>
 <pre><code class="language-yaml">    rocky+fedora34: [ cargo, openssl-devel ]
@@ -260,8 +260,8 @@ supported distribution. Default dependencies like <code>gzip</code> or <code>git
 </code></pre>
 <p>if running a simple build and there is a need to specify dependencies for the target add dependencies for one of this
 images:</p>
-<pre><code class="language-yaml">    pkger-rpm+pkger-apk+pkger-pkg: [&quot;cargo&quot;]
-    pkger-deb: [&quot;curl&quot;]
+<pre><code class="language-yaml">    pkger-rpm+pkger-apk+pkger-pkg: ["cargo"]
+    pkger-deb: ["curl"]
     pkger-gzip: []
 </code></pre>
 <p>A custom image, for example <code>rocky</code>, will also use dependecies defined for <code>pkger-rpm</code>. The same will apply for all rpm based images (or images that have their target specified to RPM in the <a href="./configuration.html">configuration</a>)</p>
