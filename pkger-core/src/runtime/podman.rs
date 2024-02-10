@@ -90,7 +90,8 @@ impl Container for PodmanContainer {
         let mut stream = exec
             .start(&opts)
             .await
-            .context("failed to start exec stream")?;
+            .context("failed to start exec stream")?
+            .unwrap();
 
         let mut container_output = Output::default();
 

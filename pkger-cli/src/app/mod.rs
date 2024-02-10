@@ -89,7 +89,7 @@ fn system_time_to_date_time(t: time::SystemTime) -> chrono::DateTime<Utc> {
             }
         }
     };
-    Utc.timestamp(sec, nsec)
+    Utc.timestamp_opt(sec, nsec).unwrap()
 }
 
 async fn init_runtime(

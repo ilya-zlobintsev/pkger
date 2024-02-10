@@ -357,7 +357,7 @@ impl Table {
                             text = text.bold();
                         }
                         if style.is_reversed() {
-                            text = text.reverse();
+                            text = text.reversed();
                         }
                         if style.is_italic() {
                             text = text.italic();
@@ -400,7 +400,7 @@ impl Table {
                         text = text.bold();
                     }
                     if style.is_reversed() {
-                        text = text.reverse();
+                        text = text.reversed();
                     }
                     if style.is_italic() {
                         text = text.italic();
