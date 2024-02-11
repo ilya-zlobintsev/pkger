@@ -64,8 +64,11 @@ fn open_editor<P: AsRef<Path>>(path: P) -> Result<ExitStatus> {
 
 fn load_gpg_key(config: &Configuration) -> Result<Option<GpgKey>> {
     if let Some(key) = &config.gpg_key {
-        let pass = rpassword::read_password_from_tty(Some("Gpg key password:"))
-            .context("failed to read password for gpg key")?;
+        let pass = match env::var("GPG_KEY_PASSWORD") {
+            Ok(pass) => pass,
+            Err(_) => rpassword::read_password_from_tty(Some("Gpg key password:"))
+                .context("failed to read password for gpg key")?,
+        };
         if let Some(name) = &config.gpg_name {
             Ok(Some(GpgKey::new(key, name, &pass)?))
         } else {
