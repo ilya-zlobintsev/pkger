@@ -163,7 +163,7 @@ impl PackageManager {
             Self::Apt => vec!["update", "-y"],
             Self::Dnf | Self::Yum => vec!["clean", "metadata"],
             Self::Zypper => vec!["clean"],
-            Self::Pacman => vec!["-Sy", "--noconfirm"],
+            Self::Pacman => vec!["-Syu", "--noconfirm"],
             Self::Apk => vec!["update"],
             Self::Unknown => vec![],
         }
