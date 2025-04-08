@@ -1,5 +1,5 @@
 use crate::image::Image;
-use crate::recipe::{BuildTarget, Dependencies, Recipe};
+use crate::recipe::{BuildTarget, Dependencies, Distro, Os, Recipe};
 
 use std::collections::HashSet;
 
@@ -7,10 +7,11 @@ pub fn recipe_and_default<'ctx>(
     deps: Option<&'ctx Dependencies>,
     recipe_: &Recipe,
     build_target: BuildTarget,
+    build_target_os: Option<&Os>,
     state_image: &str,
     enable_gpg: bool,
 ) -> HashSet<&'ctx str> {
-    let mut deps_out = default(&build_target, recipe_, enable_gpg);
+    let mut deps_out = default(&build_target, build_target_os, recipe_, enable_gpg);
     let recipe = recipe(deps, build_target, state_image);
     deps_out.extend(recipe);
     deps_out
@@ -30,7 +31,12 @@ pub fn recipe<'ctx>(
     deps_out
 }
 
-fn default(target: &BuildTarget, recipe: &Recipe, enable_gpg: bool) -> HashSet<&'static str> {
+fn default(
+    target: &BuildTarget,
+    target_os: Option<&Os>,
+    recipe: &Recipe,
+    enable_gpg: bool,
+) -> HashSet<&'static str> {
     let mut deps = HashSet::new();
     deps.insert("tar");
     match target {
@@ -39,8 +45,12 @@ fn default(target: &BuildTarget, recipe: &Recipe, enable_gpg: bool) -> HashSet<&
             deps.insert("util-linux"); // for setarch
 
             if enable_gpg {
-                deps.insert("gnupg2");
-                deps.insert("rpm-sign");
+                if let Some(os) = target_os {
+                    if os.distribution() != Distro::OpenSuse {
+                        deps.insert("gnupg2");
+                        deps.insert("rpm-sign");
+                    }
+                }
             }
         }
         BuildTarget::Deb => {

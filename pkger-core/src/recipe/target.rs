@@ -25,7 +25,7 @@ impl RecipeTarget {
         &self.image_target.image
     }
 
-    pub fn image_os(&self) -> &Option<Os> {
-        &self.image_target.os
+    pub fn image_os(&self) -> Option<&Os> {
+        self.image_target.os.as_ref()
     }
 }

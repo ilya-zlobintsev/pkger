@@ -123,6 +123,7 @@ impl Context {
             self.recipe.metadata.build_depends.as_ref(),
             &self.recipe,
             *self.target.build_target(),
+            self.target.image_os(),
             self.target.image(),
             self.gpg_key.is_some(),
         )
@@ -133,6 +134,7 @@ impl Context {
             self.recipe.metadata.depends.as_ref(),
             &self.recipe,
             *self.target.build_target(),
+            self.target.image_os(),
             self.target.image(),
             self.gpg_key.is_some(),
         )
