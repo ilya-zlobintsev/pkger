@@ -100,11 +100,11 @@ impl Package for Apk {
         ctx.script_exec(
             [
                 (
-                    ExecOpts::new().cmd(&format!("adduser -D {}", BUILD_USER)),
+                    ExecOpts::new().cmd(&format!("adduser -D {BUILD_USER}")),
                     Some("failed to create a build user"),
                 ),
                 (
-                    ExecOpts::new().cmd(&format!("passwd -d {}", BUILD_USER)),
+                    ExecOpts::new().cmd(&format!("passwd -d {BUILD_USER}")),
                     Some("failed to set password of build user"),
                 ),
                 (
@@ -217,7 +217,7 @@ impl Package for Apk {
         )
         .await?;
 
-        let apk = format!("{}.apk", package_name);
+        let apk = format!("{package_name}.apk");
         let mut apk_path = home_dir.clone();
         apk_path.push("packages");
         apk_path.push(&package_name);

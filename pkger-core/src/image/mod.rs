@@ -62,7 +62,7 @@ impl Image {
         let image_dir = images_dir.join(name);
         fs::create_dir_all(&image_dir)?;
 
-        let dockerfile = format!("FROM {}", image);
+        let dockerfile = format!("FROM {image}");
         fs::write(image_dir.join("Dockerfile"), dockerfile.as_bytes())?;
 
         Image::try_from_path(image_dir)

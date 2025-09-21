@@ -50,7 +50,7 @@ impl Env {
     pub fn kv_vec(self) -> Vec<String> {
         self.0
             .into_iter()
-            .map(|(k, v)| format!("{}={}", k, v))
+            .map(|(k, v)| format!("{k}={v}"))
             .collect()
     }
 

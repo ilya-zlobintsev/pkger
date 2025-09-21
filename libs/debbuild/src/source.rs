@@ -38,6 +38,7 @@ pub struct SourceDebControl {
     /// Simple field containing a word indicating the type of package:
     ///  - deb for binary packages
     ///  - udeb for micro binary packages
+    ///
     /// Other types not defined here may be indicated.
     package_type: Option<String>,
     testsuite: Option<String>,

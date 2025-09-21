@@ -60,7 +60,7 @@ impl JobCtx {
                                 runtime::docker_api::Error::Fault { code: _, message } => message,
                                 e => e.to_string(),
                             },
-                            Err(e) => format!("{:?}", e),
+                            Err(e) => format!("{e:?}"),
                         }
                     } else {
                         match e.downcast::<runtime::podman_api::Error>() {
@@ -68,7 +68,7 @@ impl JobCtx {
                                 runtime::podman_api::Error::Fault { code: _, message } => message,
                                 e => e.to_string(),
                             },
-                            Err(e) => format!("{:?}", e),
+                            Err(e) => format!("{e:?}"),
                         }
                     };
                     JobResult::failure(ctx.id(), duration, reason)

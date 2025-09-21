@@ -135,7 +135,7 @@ impl Manifest for PkgBuild {
         push_field!(pkgrel);
         push_array!(arch);
         if let Some(value) = &self.pkgdesc {
-            writeln!(pkg, "pkgdesc='{}'", value)?;
+            writeln!(pkg, "pkgdesc='{value}'")?;
         }
         push_if_some!(epoch);
         push_if_some!(url);

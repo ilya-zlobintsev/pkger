@@ -93,7 +93,7 @@ impl Package for Deb {
 
                 ctx.checked_exec(
                     &ExecOpts::default()
-                        .cmd(&format!("chmod 0755 {}", scripts_paths))
+                        .cmd(&format!("chmod 0755 {scripts_paths}"))
                         .working_dir(&deb_dir),
                     logger,
                 )

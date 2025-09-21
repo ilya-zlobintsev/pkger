@@ -495,7 +495,7 @@ impl Application {
         } else {
             for name in recipes {
                 if self.recipes.load(&name).is_ok() {
-                    println!("{}", name);
+                    println!("{name}");
                 }
             }
         }
@@ -567,7 +567,7 @@ impl Application {
                         continue;
                     }
 
-                    table.push(vec![format!("{}:", image_name)
+                    table.push(vec![format!("{image_name}:")
                         .cell()
                         .bold()
                         .color(Color::Blue)

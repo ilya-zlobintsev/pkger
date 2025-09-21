@@ -408,14 +408,14 @@ impl Table {
                     if style.is_underline() {
                         text = text.underline();
                     }
-                    print!("{}", text)
+                    print!("{text}")
                 }
                 Some(Token::NewLine) => println!(),
                 Some(Token::ColumnSeparator) => print!("{}", self.col_separator),
                 Some(Token::RowSeparator(n)) => {
                     let separator = self.row_separator.unwrap_or_default();
                     for _ in 0..n {
-                        print!("{}", separator);
+                        print!("{separator}");
                     }
                 }
                 Some(Token::Padding(n)) => {

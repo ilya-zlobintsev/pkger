@@ -24,7 +24,7 @@ impl FromStr for Shell {
             "fish" => Ok(Shell::Fish),
             "powershell" => Ok(Shell::PowerShell),
             "zsh" => Ok(Shell::Zsh),
-            _ => Err(Error::msg(format!("invalid shell `{}`", s))),
+            _ => Err(Error::msg(format!("invalid shell `{s}`"))),
         }
     }
 }

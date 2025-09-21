@@ -11,8 +11,6 @@ use std::path::Path;
 
 pub static SESSION_LABEL_KEY: &str = "pkger.session";
 
-// https://github.com/rust-lang/rust-clippy/issues/7271
-#[allow(clippy::needless_lifetimes)]
 /// Creates and starts a container from the given ImageState
 pub async fn spawn<'ctx>(
     ctx: &'ctx build::Context,
@@ -41,7 +39,7 @@ pub async fn spawn<'ctx>(
         if ssh.forward_agent {
             const CONTAINER_PATH: &str = "/ssh-agent";
             let host_path = ssh::auth_sock()?;
-            volumes.push(format!("{}:{}", host_path, CONTAINER_PATH));
+            volumes.push(format!("{host_path}:{CONTAINER_PATH}"));
             env.insert(ssh::SOCK_ENV, CONTAINER_PATH);
         }
 
@@ -77,7 +75,7 @@ pub struct Context<'job> {
 }
 
 impl<'job> Context<'job> {
-    pub fn new(build: &'job build::Context, opts: CreateOpts) -> Context<'_> {
+    pub fn new(build: &'job build::Context, opts: CreateOpts) -> Context<'job> {
         Context {
             container: match &build.runtime {
                 RuntimeConnector::Docker(docker) => Box::new(DockerContainer::new(docker.clone())),
@@ -149,7 +147,7 @@ impl<'job> Context<'job> {
         debug!(logger => "Directories: {}", dirs_joined);
 
         self.checked_exec(
-            &ExecOpts::new().cmd(&format!("mkdir -p {}", dirs_joined)),
+            &ExecOpts::new().cmd(&format!("mkdir -p {dirs_joined}")),
             logger,
         )
         .await

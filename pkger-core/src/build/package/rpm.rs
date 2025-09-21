@@ -50,7 +50,7 @@ impl Package for Rpm {
         let rpms_arch = rpms.join(arch);
         let srpms = base_path.join("SRPMS");
         let arch_dir = rpms.join(arch);
-        let rpm_name = format!("{}.rpm", package_name);
+        let rpm_name = format!("{package_name}.rpm");
         let tmp_buildroot = PathBuf::from(["/tmp/", &package_name].join(""));
         let source_tar_path = sources.join(&source_tar);
 
@@ -175,7 +175,7 @@ impl Package for Rpm {
         ctx.container
             .download_files(&arch_dir, output_dir, logger)
             .await
-            .map(|_| output_dir.join(format!("{}.rpm", package_name)))
+            .map(|_| output_dir.join(format!("{package_name}.rpm")))
             .context("failed to download finished package")
     }
 }

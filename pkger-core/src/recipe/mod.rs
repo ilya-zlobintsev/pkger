@@ -213,7 +213,7 @@ impl Recipe {
             .iter()
             .enumerate()
             .fold(String::new(), |mut s, (i, _)| {
-                let _ = writeln!(s, "tar xvf %{{SOURCE{}}} -C %{{buildroot}}", i);
+                let _ = writeln!(s, "tar xvf %{{SOURCE{i}}} -C %{{buildroot}}");
                 s
             });
 
@@ -307,7 +307,7 @@ impl Recipe {
         _logger: &mut BoxedCollector,
     ) -> PkgBuild {
         let package_func = sources.iter().fold(String::new(), |mut s, src| {
-            let _ = writeln!(s, "    tar xvf {} -C $pkgdir", src);
+            let _ = writeln!(s, "    tar xvf {src} -C $pkgdir");
             s
         });
 
@@ -358,7 +358,7 @@ impl Recipe {
             sources
                 .iter()
                 .fold("    mkdir -p $pkgdir\n".to_string(), |mut s, src| {
-                    let _ = writeln!(s, "    tar xvf {} -C $pkgdir", src);
+                    let _ = writeln!(s, "    tar xvf {src} -C $pkgdir");
                     s
                 });
 
@@ -567,7 +567,7 @@ build:
 
         let rep = RecipeRep::from_yaml_bytes(&serde_yaml::to_vec(&recipe).unwrap()).unwrap();
         let res = Recipe::new(rep, PathBuf::new());
-        println!("\n\n\n\n\n\n\n{:?}", res);
+        println!("\n\n\n\n\n\n\n{res:?}");
         assert!(res.is_err());
         let recipe = r#"
 from: base
@@ -579,7 +579,7 @@ build:
 
         let rep = RecipeRep::from_yaml_bytes(&serde_yaml::to_vec(&recipe).unwrap()).unwrap();
         let res = Recipe::new(rep, PathBuf::new());
-        println!("\n\n\n\n\n\n\n{:?}", res);
+        println!("\n\n\n\n\n\n\n{res:?}");
         assert!(res.is_err());
     }
 }

@@ -6,7 +6,7 @@ use syn::{
 };
 
 pub struct SpecStruct {
-    pub attrs: Vec<Attribute>,
+    pub _attrs: Vec<Attribute>,
     pub input: DeriveInput,
 }
 
@@ -57,7 +57,7 @@ impl SpecStruct {
 impl Parse for SpecStruct {
     fn parse(input: ParseStream) -> Result<Self> {
         Ok(SpecStruct {
-            attrs: input.call(Attribute::parse_outer)?,
+            _attrs: input.call(Attribute::parse_outer)?,
             input: input.parse()?,
         })
     }

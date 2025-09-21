@@ -121,9 +121,9 @@ async fn main() -> Result<()> {
     let config = result.unwrap();
 
     let mut logger_config = if let Some(p) = &opts.log_dir {
-        log::Config::file(p.join(format!("pkger-{}.log", timestamp)))
+        log::Config::file(p.join(format!("pkger-{timestamp}.log")))
     } else if let Some(p) = &config.log_dir {
-        log::Config::file(p.join(format!("pkger-{}.log", timestamp)))
+        log::Config::file(p.join(format!("pkger-{timestamp}.log")))
     } else {
         log::Config::stdout()
     };

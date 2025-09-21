@@ -56,7 +56,7 @@ pub async fn collect(
             remote::fetch_http_source(ctx, src, &patch_dir, logger).await?;
             out.push((
                 patch.clone(),
-                patch_dir.join(src.split('/').last().unwrap_or_default()),
+                patch_dir.join(src.split('/').next_back().unwrap_or_default()),
             ));
             continue;
         }

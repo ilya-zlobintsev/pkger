@@ -34,7 +34,7 @@ impl Package for Pkg {
 
         info!(logger => "building PKG package {}", package_name);
 
-        let tmp_dir = PathBuf::from(format!("/tmp/{}", package_name));
+        let tmp_dir = PathBuf::from(format!("/tmp/{package_name}"));
         let src_dir = tmp_dir.join("src");
         let bld_dir = tmp_dir.join("bld");
 
@@ -112,16 +112,16 @@ impl Package for Pkg {
         ctx.script_exec(
             [
                 (
-                    ExecOpts::new().cmd(&format!("useradd -m {}", BUILD_USER)),
+                    ExecOpts::new().cmd(&format!("useradd -m {BUILD_USER}")),
                     Some("failed to create build user"),
                 ),
                 (
-                    ExecOpts::new().cmd(&format!("passwd -d {}", BUILD_USER)),
+                    ExecOpts::new().cmd(&format!("passwd -d {BUILD_USER}")),
                     Some("failed to create build user"),
                 ),
                 (
                     ExecOpts::new()
-                        .cmd(&format!("chown -Rv {0}:{0} .", BUILD_USER))
+                        .cmd(&format!("chown -Rv {BUILD_USER}:{BUILD_USER} ."))
                         .working_dir(&bld_dir),
                     Some("failed to change ownership of build directory"),
                 ),
@@ -143,7 +143,7 @@ impl Package for Pkg {
         )
         .await?;
 
-        let pkg = format!("{}.pkg.tar.zst", package_name);
+        let pkg = format!("{package_name}.pkg.tar.zst");
         let pkg_path = bld_dir.join(&pkg);
 
         ctx.container

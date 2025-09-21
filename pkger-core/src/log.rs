@@ -241,7 +241,7 @@ impl<'l> Writer for Logger<'l> {
         s.push_str(&args_str);
         s.push('\n');
 
-        write!(&mut self.handle, "{}", s)
+        write!(&mut self.handle, "{s}")
     }
 }
 impl<'l> Leveled for Logger<'l> {

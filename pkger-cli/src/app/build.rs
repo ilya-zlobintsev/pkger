@@ -237,9 +237,9 @@ impl Application {
         output_config: &AppOutputConfig,
     ) -> Result<BoxedCollector> {
         let mut collector = if let Some(p) = &output_config.log_dir {
-            log::Config::file(p.join(format!("{}.log", id)))
+            log::Config::file(p.join(format!("{id}.log")))
         } else if let Some(p) = &self.config.log_dir {
-            log::Config::file(p.join(format!("{}.log", id)))
+            log::Config::file(p.join(format!("{id}.log")))
         } else {
             log::Config::stdout()
         }
@@ -329,9 +329,8 @@ impl Application {
         let mut total = 0;
         let mut taskmap: Vec<_> = taskmap
             .into_values()
-            .map(|v| {
+            .inspect(|v| {
                 total += v.len();
-                v
             })
             .collect();
         let mut taskdeque = VecDeque::new();
