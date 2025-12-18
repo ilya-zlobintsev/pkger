@@ -206,8 +206,9 @@ pub async fn sign_package(
 %_gpg_path /root/.gnupg
 %_gpg_name {}
 %_gpgbin /usr/bin/gpg2
-%__gpg_sign_cmd %{{__gpg}} gpg --batch --verbose --pinentry-mode=loopback --passphrase {} -u "%{{_gpg_name}}" -sbo %{{__signature_filename}} --digest-algo sha256 %{{__plaintext_filename}}'
+%_gpg_sign_cmd_extra_args --batch --verbose --pinentry-mode=loopback --passphrase {} -u "%{{_gpg_name}}"
 "##,
+        // %__gpg_sign_cmd %{{__gpg}} gpg --batch --verbose --pinentry-mode=loopback --passphrase {} -u "%{{_gpg_name}}" -sbo %{{__signature_filename}} --digest-algo sha256 %{{__plaintext_filename}}'
         gpg_key.name(),
         gpg_key.pass()
     );
@@ -244,6 +245,11 @@ pub async fn sign_package(
     )
     .await
     .context("failed importing key to rpm database")?;
+
+    // trace!(logger => "waiting 10 minutes");
+    // ctx.checked_exec(&ExecOpts::default().cmd("sleep 600"), logger)
+    //     .await
+    //     .map(|_| ());
 
     trace!(logger => "add signature");
     ctx.checked_exec(
