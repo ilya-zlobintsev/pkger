@@ -9,7 +9,7 @@ pub mod scripts;
 
 use crate::gpg::GpgKey;
 use crate::image::{Image, ImageState, ImagesState};
-use crate::log::{debug, info, trace, warning, write_out, BoxedCollector};
+use crate::log::{debug, info, trace, warning, BoxedCollector};
 use crate::proxy::ProxyConfig;
 use crate::recipe::{ImageTarget, Recipe, RecipeTarget};
 use crate::runtime::container::ExecOpts;

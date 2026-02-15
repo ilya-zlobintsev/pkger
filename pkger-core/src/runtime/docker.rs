@@ -4,6 +4,7 @@ use crate::runtime::container::{truncate, Container, CreateOpts, ExecOpts, Outpu
 use crate::{unix_timestamp, ErrContext, Result};
 
 use async_trait::async_trait;
+use docker_api::opts::ExecStartOpts;
 use docker_api::{
     conn::TtyChunk,
     models::ContainerPrune200Response,
@@ -92,7 +93,8 @@ impl Container for DockerContainer {
         debug!(logger => "executing command in container {}, {:?}", self.id(), opts);
         let exec =
             Exec::create(self.docker.clone(), self.id(), &opts.clone().build_docker()).await?;
-        let mut stream = exec.start();
+        let start_opts = ExecStartOpts::default();
+        let mut stream = exec.start(&start_opts).await?;
 
         let mut container_output = Output::default();
 

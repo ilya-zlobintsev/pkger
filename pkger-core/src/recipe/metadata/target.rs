@@ -22,18 +22,14 @@ impl From<(&'static str, &'static str, Os)> for BuildTargetInfo {
 
 #[derive(Copy, Clone, Deserialize, Serialize, Debug, Eq, PartialEq, Hash)]
 #[serde(rename_all = "lowercase")]
+#[derive(Default)]
 pub enum BuildTarget {
     Rpm,
     Deb,
+    #[default]
     Gzip,
     Pkg,
     Apk,
-}
-
-impl Default for BuildTarget {
-    fn default() -> Self {
-        Self::Gzip
-    }
 }
 
 impl TryFrom<&str> for BuildTarget {
