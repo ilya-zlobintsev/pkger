@@ -7,7 +7,7 @@ pub const APP_NAME: &str = "pkger";
 #[derive(Debug, Parser)]
 #[command(
     name = APP_NAME,
-    version = "0.11.4",
+    version = "0.11.5",
     about = "Creates RPM, DEB and other packages using Docker"
 )]
 pub struct Opts {

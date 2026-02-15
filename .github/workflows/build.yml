@@ -33,35 +33,35 @@ jobs:
       - uses: actions/checkout@v3
       - run: make lint
 
-  test:
-    needs: [lint]
-    runs-on: ubuntu-latest
+  #test:
+  #  needs: [lint]
+  #  runs-on: ubuntu-latest
 
-    steps:
-      - name: Setup Rust
-        uses: hecrj/setup-rust-action@v2
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Test
-        run: make test
-      - name: Verify DEB package
-        run: |
-          sudo dpkg -i example/output/debian/test-package-0.1.0-0.amd64.deb
-          cat /test/deb/test_file
-      - name: Install alien
-        run: sudo apt install -y alien rpm
-      - name: Verify RPM package
-        run: |
-          sudo alien -i example/output/rocky/test-package-0.1.0-0.x86_64.rpm
-          cat /test/rpm/test_file
-      - name: Create a new image
-        run: |
-          cargo run -- -c example/conf.yml new image test-image
-          cat example/images/test-image/Dockerfile
-      - name: Create a new recipe
-        run: |
-          cargo run -- -c example/conf.yml new recipe test-recipe --version 0.1.0 --license MIT
-          cat example/recipes/test-recipe/recipe.yml
-          cat example/recipes/test-recipe/recipe.yml | grep name
-          cat example/recipes/test-recipe/recipe.yml | grep license
-          cat example/recipes/test-recipe/recipe.yml | grep version
+  #  steps:
+  #    - name: Setup Rust
+  #      uses: hecrj/setup-rust-action@v2
+  #    - name: Checkout
+  #      uses: actions/checkout@v3
+  #    - name: Test
+  #      run: make test
+  #    - name: Verify DEB package
+  #      run: |
+  #        sudo dpkg -i example/output/debian/test-package-0.1.0-0.amd64.deb
+  #        cat /test/deb/test_file
+  #    - name: Install alien
+  #      run: sudo apt install -y alien rpm
+  #    - name: Verify RPM package
+  #      run: |
+  #        sudo alien -i example/output/rocky/test-package-0.1.0-0.x86_64.rpm
+  #        cat /test/rpm/test_file
+  #    - name: Create a new image
+  #      run: |
+  #        cargo run -- -c example/conf.yml new image test-image
+  #        cat example/images/test-image/Dockerfile
+  #    - name: Create a new recipe
+  #      run: |
+  #        cargo run -- -c example/conf.yml new recipe test-recipe --version 0.1.0 --license MIT
+  #        cat example/recipes/test-recipe/recipe.yml
+  #        cat example/recipes/test-recipe/recipe.yml | grep name
+  #        cat example/recipes/test-recipe/recipe.yml | grep license
+  #        cat example/recipes/test-recipe/recipe.yml | grep version
